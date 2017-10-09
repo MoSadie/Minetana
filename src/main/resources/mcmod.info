@@ -1,0 +1,8 @@
+[{
+  "modid": "minetana",
+  "name": "Minetana",
+  "description": "Adds a chatbot with basic smart home like functions",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "authorList": ["MoSadie"]
+}]
