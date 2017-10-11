@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "POP",
+    "ORO",
+    "POP"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:redstone",
+      "data": 0
+    },
+    "O": {
+      "item": "minecraft:obsidian",
+      "data": 0
+    },
+	"P": {
+      "item": "minecraft:purpur_block",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "minetana:smartswitch",
+    "count": 1,
+    "data": 0
+  }
+}

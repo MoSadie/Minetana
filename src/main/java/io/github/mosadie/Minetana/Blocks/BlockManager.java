@@ -1,5 +1,6 @@
 package io.github.mosadie.Minetana.Blocks;
 
+import io.github.mosadie.Minetana.TileEntitys.SmartSwitchTE;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;

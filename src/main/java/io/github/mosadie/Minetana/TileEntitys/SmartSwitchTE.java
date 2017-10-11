@@ -2,25 +2,42 @@ package io.github.mosadie.Minetana.TileEntitys;
 
 import java.util.UUID;
 
-import com.mojang.authlib.GameProfile;
+import com.google.common.base.Optional;
 
+import io.github.mosadie.Minetana.Minetana;
 import io.github.mosadie.Minetana.Blocks.SmartSwitch;
-import net.minecraft.client.Minecraft;
+import io.github.mosadie.Minetana.events.MinetanaInteractEvent;
+import io.github.mosadie.Minetana.events.MinetanaInteractEvent.Intent;
+import io.github.mosadie.Minetana.util.Util;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class SmartSwitchTE extends TileEntity {
 
 	String customName;
-	SmartSwitch block;
 	boolean on = false;
 	UUID owner;
 	
-	public SmartSwitchTE(SmartSwitch block) {
-		this.block = block;
+	public SmartSwitchTE() {
+		super();
+		MinecraftForge.EVENT_BUS.register(this);
+	}
+	
+	@SubscribeEvent
+	public void onMinetanaInteractEvent(MinetanaInteractEvent event) {
+		if (hasCustomName()) {
+			Minetana.LOGGER.info("EVENT THINGS NameResult: "+ Util.areNamesCloseEnough(getCustomName(), event.details));
+			if (Util.areNamesCloseEnough(getCustomName(), event.details) && (event.intent == Intent.ON || event.intent == Intent.OFF)) {
+				event.sendResponse("Ok! Switch "+getCustomName()+" turned " + (event.intent == Intent.ON ? "on!" : "off!"));
+				setOn(event.intent == Intent.ON ? true : false);
+			} else if (event.intent == Intent.LIST) {
+				event.sendResponse("Switch "+ getCustomName() + ", currently turned "+ (getWorld().getBlockState(getPos()).getValue(SmartSwitch.on) == true ? "on." : "off.")) ;
+			}
+		}
 	}
 	
 	@Override
@@ -67,7 +84,7 @@ public class SmartSwitchTE extends TileEntity {
 	}
 	
 	public String getCustomName() {
-		return customName;
+		return customName != null ? customName : "Unnamed";
 	}
 	
 	public void setCustomName(String newName) {
@@ -76,6 +93,12 @@ public class SmartSwitchTE extends TileEntity {
 	
 	public boolean isOn() {
 		return on;
+	}
+	
+	public void setOn(boolean on) {
+		this.on = on;
+		world.setBlockState(pos, world.getBlockState(pos).withProperty(SmartSwitch.on,on));
+		markDirty();
 	}
 
 	public boolean toggleOwner(EntityPlayer playerIn) {

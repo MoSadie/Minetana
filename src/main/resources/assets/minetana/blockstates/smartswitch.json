@@ -1,0 +1,21 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "all": "minetana:block/smartswitch_off"
+        },
+        "model": "cube_all",
+        "uvlock": true
+    },
+    "variants": {
+        "on": {
+            "true": {
+                "textures": {
+                    "texture": "minetana:block/smartswitch_on"
+                }
+            },
+            "false": {
+            }
+        }
+    }
+}

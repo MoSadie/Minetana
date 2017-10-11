@@ -3,7 +3,6 @@ package io.github.mosadie.Minetana;
 import org.apache.logging.log4j.Logger;
 
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -26,8 +25,6 @@ public class Minetana {
 	
 	@SidedProxy(clientSide="io.github.mosadie.Minetana.ClientProxy", serverSide="io.github.mosadie.Minetana.ServerProxy")
 	public static CommonProxy proxy;
-	
-	public FakePlayer playerMinetana;
 	
 	public Minetana() {
 		MinecraftForge.EVENT_BUS.register(new EventReceiver());
